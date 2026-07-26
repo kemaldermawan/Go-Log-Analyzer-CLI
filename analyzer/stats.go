@@ -1,6 +1,9 @@
 package analyzer
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type LogEntry struct {
 	IP         string
@@ -31,6 +34,27 @@ func (s *LogStats) AddEntry(entry LogEntry) {
 	s.Endpoints[entry.Endpoint]++
 }
 
+type kv struct {
+	Key   string
+	Value int
+}
+
+func getTopN(m map[string]int, n int) []kv {
+	var ss []kv
+	for k, v := range m {
+		ss = append(ss, kv{k, v})
+	}
+
+	sort.Slice(ss, func(i, j int) bool {
+		return ss[i].Value > ss[j].Value
+	})
+
+	if len(ss) > n {
+		return ss[:n]
+	}
+	return ss
+}
+
 func (s *LogStats) PrintReport(duration string) {
 	fmt.Println("==================================================")
 	fmt.Println("           LOG ANALYZER REPORT (GO)               ")
@@ -43,14 +67,14 @@ func (s *LogStats) PrintReport(duration string) {
 		fmt.Printf("    - Status %s : %d times\n", code, count)
 	}
 
-	fmt.Println("\n[+] IP Requesters:")
-	for ip, count := range s.IPRequests {
-		fmt.Printf("    - IP %s : %d requests\n", ip, count)
+	fmt.Println("\n[+] Top 5 IP Requesters:")
+	for _, kv := range getTopN(s.IPRequests, 5) {
+		fmt.Printf("    - IP %s : %d requests\n", kv.Key, kv.Value)
 	}
 
-	fmt.Println("\n[+] Requested Endpoints:")
-	for ep, count := range s.Endpoints {
-		fmt.Printf("    - %s : %d hits\n", ep, count)
+	fmt.Println("\n[+] Top 5 Requested Endpoints:")
+	for _, kv := range getTopN(s.Endpoints, 5) {
+		fmt.Printf("    - %s : %d hits\n", kv.Key, kv.Value)
 	}
 	fmt.Println("==================================================")
 }
