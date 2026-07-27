@@ -1,0 +1,17 @@
+Category,Key,Value
+General,Total Lines,9
+Status Code,200,4
+Status Code,404,1
+Status Code,500,1
+Status Code,401,3
+IP Request,192.168.1.12,1
+IP Request,10.0.0.5,4
+IP Request,192.168.1.15,1
+IP Request,192.168.1.10,3
+Endpoint,/admin,3
+Endpoint,/api/v1/products,2
+Endpoint,/api/v1/login,1
+Endpoint,/dashboard,1
+Endpoint,/api/v1/checkout,1
+Endpoint,/api/v1/user,1
+Security Alert (Failed IP),10.0.0.5,4
