@@ -1,0 +1,26 @@
+{
+    "total_lines": 9,
+    "status_codes": {
+        "200": 4,
+        "401": 3,
+        "404": 1,
+        "500": 1
+    },
+    "ip_requests": {
+        "10.0.0.5": 4,
+        "192.168.1.10": 3,
+        "192.168.1.12": 1,
+        "192.168.1.15": 1
+    },
+    "endpoints": {
+        "/admin": 3,
+        "/api/v1/checkout": 1,
+        "/api/v1/login": 1,
+        "/api/v1/products": 2,
+        "/api/v1/user": 1,
+        "/dashboard": 1
+    },
+    "failed_requests": {
+        "10.0.0.5": 4
+    }
+}

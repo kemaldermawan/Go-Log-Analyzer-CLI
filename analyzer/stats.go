@@ -59,7 +59,7 @@ func getTopN(m map[string]int, n int) []kv {
 	return ss
 }
 
-func (s *LogStats) PrintReport(duration string) {
+func (s *LogStats) PrintReport(duration string, threshold int) {
 	fmt.Println("==================================================")
 	fmt.Println("           LOG ANALYZER REPORT (GO)               ")
 	fmt.Println("==================================================")
@@ -81,7 +81,7 @@ func (s *LogStats) PrintReport(duration string) {
 		fmt.Printf("    - %s : %d hits\n", kv.Key, kv.Value)
 	}
 	fmt.Println("\n[!] SECURITY ALERTS / ANOMALIES DETECTED:")
-	alerts := DetectAnomalies(s.FailedRequests, 3)
+	alerts := DetectAnomalies(s.FailedRequests, threshold)
 	if len(alerts) == 0 {
 		fmt.Println("    [✓] No anomalies detected.")
 	} else {
